@@ -26,6 +26,7 @@ import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.utils.ClassPathUtils;
 import io.jeasyarch.utils.FileUtils;
 import io.jeasyarch.utils.MapUtils;
+import io.jeasyarch.utils.OutputUtils;
 import io.jeasyarch.utils.PathTestHelper;
 import io.jeasyarch.utils.PropertiesUtils;
 import io.jeasyarch.utils.QuarkusUtils;
@@ -106,7 +107,7 @@ public class BootstrapQuarkusResource extends QuarkusResource {
     private Path tryToReuseOrBuildRunner() {
         Optional<String> runnerLocation = Optional.empty();
         if (!containsBuildProperties() && !requiresCustomBuild) {
-            Path targetLocation = location.resolve(PropertiesUtils.TARGET);
+            Path targetLocation = location.resolve(OutputUtils.runnerLocation());
             if (QuarkusUtils.isNativePackageType(context.getOwner())) {
                 String nativeRunnerExpectedLocation = NATIVE_RUNNER;
                 if (OS.WINDOWS.isCurrentOs()) {

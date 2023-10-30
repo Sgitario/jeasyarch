@@ -1,11 +1,11 @@
 package io.jeasyarch.resources.common.local;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.testcontainers.containers.BindMode;
@@ -21,11 +21,10 @@ import io.jeasyarch.logging.Log;
 import io.jeasyarch.logging.LoggingHandler;
 import io.jeasyarch.logging.TestContainersLoggingHandler;
 import io.jeasyarch.resources.containers.local.DockerJEasyArchNetwork;
+import io.jeasyarch.utils.OutputUtils;
 import io.jeasyarch.utils.PropertiesUtils;
 
 public abstract class GenericContainerManagedResource extends ManagedResource {
-
-    private static final String TARGET = "target";
 
     private final String expectedLog;
     private final String[] command;
@@ -158,9 +157,10 @@ public abstract class GenericContainerManagedResource extends ManagedResource {
     }
 
     private void addFileToContainer(String filePath) {
-        if (Files.exists(Path.of(TARGET, filePath))) {
+        Optional<Path> file = OutputUtils.resolve(filePath);
+        if (file.isPresent()) {
             // Mount file if it's a file
-            innerContainer.withCopyFileToContainer(MountableFile.forHostPath(Path.of(TARGET, filePath)), filePath);
+            innerContainer.withCopyFileToContainer(MountableFile.forHostPath(file.get()), filePath);
         } else {
             // then file is in the classpath
             innerContainer.withClasspathResourceMapping(filePath, filePath, BindMode.READ_ONLY);
