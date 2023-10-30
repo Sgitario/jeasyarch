@@ -14,6 +14,7 @@ import io.jeasyarch.configuration.BaseConfigurationBuilder;
 import io.jeasyarch.configuration.ServiceConfiguration;
 import io.jeasyarch.configuration.ServiceConfigurationBuilder;
 import io.jeasyarch.configuration.ServiceConfigurationLoader;
+import io.jeasyarch.utils.OutputUtils;
 
 public final class ServiceContext {
 
@@ -27,7 +28,8 @@ public final class ServiceContext {
     public ServiceContext(Service owner, JEasyArchContext jeasyArchContext) {
         this.owner = owner;
         this.jeasyArchContext = jeasyArchContext;
-        this.serviceFolder = Path.of("target", jeasyArchContext.getRunningTestClassName(), getName());
+        this.serviceFolder = OutputUtils.target().resolve(jeasyArchContext.getRunningTestClassName())
+                .resolve(getName());
         this.configuration = ServiceConfigurationLoader.load(owner.getName(), jeasyArchContext,
                 new ServiceConfigurationBuilder());
     }

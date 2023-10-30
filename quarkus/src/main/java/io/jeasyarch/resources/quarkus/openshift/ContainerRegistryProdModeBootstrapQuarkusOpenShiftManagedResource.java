@@ -15,11 +15,10 @@ import io.jeasyarch.resources.openshift.OpenShiftManagedResource;
 import io.jeasyarch.resources.quarkus.common.BootstrapQuarkusResource;
 import io.jeasyarch.utils.DockerUtils;
 import io.jeasyarch.utils.FileUtils;
+import io.jeasyarch.utils.OutputUtils;
 import io.jeasyarch.utils.QuarkusUtils;
 
 public class ContainerRegistryProdModeBootstrapQuarkusOpenShiftManagedResource extends OpenShiftManagedResource {
-
-    private static final String TARGET = "target";
     private static final String DEPLOYMENT = "openshift.yml";
 
     private final String location;
@@ -77,9 +76,10 @@ public class ContainerRegistryProdModeBootstrapQuarkusOpenShiftManagedResource e
 
     @Override
     protected Optional<Deployment> loadDeploymentFromFolder() {
-        File file = Path.of(TARGET, QuarkusUtils.getKubernetesFolder(context.getOwner()), DEPLOYMENT).toFile();
-        if (file.exists()) {
-            return Optional.ofNullable(loadDeploymentFromString(FileUtils.loadFile(file)));
+        Optional<File> file = OutputUtils.resolve(QuarkusUtils.getKubernetesFolder(context.getOwner()), DEPLOYMENT)
+                .map(Path::toFile);
+        if (file.isPresent() && file.get().exists()) {
+            return Optional.ofNullable(loadDeploymentFromString(FileUtils.loadFile(file.get())));
         }
 
         return Optional.empty();

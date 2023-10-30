@@ -35,7 +35,7 @@ public class SqlServerContainerAnnotationBinding extends ContainerAnnotationBind
         databaseService.withPasswordProperty(metadata.passwordProperty());
         databaseService.withJdbcUrlPattern(JDBC_URL_PATTERN);
         databaseService.withReactiveUrlPattern(REACTIVE_URL_PATTERN);
-        databaseService.overrideDefaults(USER, PASSWORD, DATABASE);
+        databaseService.with(USER, PASSWORD, DATABASE);
         // We need to accept the SQL Server End-User License Agreement (EULA):
         databaseService.withProperty("ACCEPT_EULA", "Y");
 

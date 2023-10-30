@@ -1,5 +1,6 @@
 package io.jeasyarch.utils;
 
+import static io.jeasyarch.utils.OutputUtils.getFilePath;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.FileOutputStream;
@@ -12,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -217,17 +217,6 @@ public final class ManifestsUtils {
 
         // from classpath
         return FileUtils.loadFile(filePath);
-    }
-
-    private static String getFilePath(String path) {
-        try (Stream<Path> binariesFound = Files.find(PropertiesUtils.TARGET, Integer.MAX_VALUE,
-                (file, basicFileAttributes) -> file.toString().contains(path))) {
-            return binariesFound.map(Path::toString).findFirst().orElse(path);
-        } catch (IOException ex) {
-            // ignored
-        }
-
-        return path;
     }
 
     private static boolean isResource(String key) {

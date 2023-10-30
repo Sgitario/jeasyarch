@@ -13,6 +13,7 @@ import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.logging.LoggingHandler;
 import io.jeasyarch.utils.Command;
 import io.jeasyarch.utils.FileUtils;
+import io.jeasyarch.utils.OutputUtils;
 import io.jeasyarch.utils.PropertiesUtils;
 
 public class SpringResource {
@@ -63,13 +64,13 @@ public class SpringResource {
     }
 
     private Optional<String> findRunner() {
-        return FileUtils.findFile(location.resolve(PropertiesUtils.TARGET),
+        return FileUtils.findFile(location.resolve(OutputUtils.runnerLocation()),
                 f -> f.endsWith(JVM_RUNNER) && !f.endsWith(SOURCES + JVM_RUNNER));
     }
 
     private Path tryToBuildRunner() {
         FileUtils.copyDirectoryTo(location, context.getServiceFolder());
-        FileUtils.deletePath(context.getServiceFolder().resolve("target"));
+        FileUtils.deletePath(context.getServiceFolder().resolve(OutputUtils.target()));
         FileUtils.deletePath(context.getServiceFolder().resolve("src").resolve("test").resolve("java"));
         if (buildCommands.length > 0) {
             List<String> effectiveCommands = new ArrayList<>();
@@ -82,7 +83,7 @@ public class SpringResource {
             }
         }
 
-        return FileUtils.findFile(context.getServiceFolder().resolve(PropertiesUtils.TARGET), JVM_RUNNER).map(Path::of)
+        return FileUtils.findFile(context.getServiceFolder().resolve(OutputUtils.target()), JVM_RUNNER).map(Path::of)
                 .orElseThrow(() -> new RuntimeException(
                         "Could not locate the Spring JAR file. You need to build the application before running the test."));
     }
