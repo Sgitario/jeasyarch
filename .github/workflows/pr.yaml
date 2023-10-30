@@ -133,7 +133,7 @@ jobs:
         uses: manusa/actions-setup-openshift@v1.1.5
         with:
           oc version: ${{ matrix.openshift }}
-          dns ip: 1.1.1.1
+          github token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
         run: |
           mvn -s .github/mvn-settings.xml clean install -Pframework -Dexamples -Dcoverage \
