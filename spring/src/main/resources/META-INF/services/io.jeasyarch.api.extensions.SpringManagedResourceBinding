@@ -1,0 +1,2 @@
+io.jeasyarch.resources.spring.kubernetes.KubernetesSpringManagedResourceBinding
+io.jeasyarch.resources.spring.openshift.OpenShiftSpringManagedResourceBinding

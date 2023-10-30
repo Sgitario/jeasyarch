@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.jeasyarch</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>containers</artifactId>
+  <name>JEasyArch - Containers</name>
+  <properties>
+    <!-- Declared Dependencies -->
+    <testcontainers.version>1.18.1</testcontainers.version>
+    <!-- Test Dependencies -->
+    <javax.version>1</javax.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers</artifactId>
+      <version>${testcontainers.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>${javax.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

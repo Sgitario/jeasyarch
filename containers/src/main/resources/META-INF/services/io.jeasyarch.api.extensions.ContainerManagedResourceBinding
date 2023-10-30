@@ -1,0 +1,2 @@
+io.jeasyarch.resources.containers.kubernetes.KubernetesContainerManagedResourceBinding
+io.jeasyarch.resources.containers.openshift.OpenShiftContainerManagedResourceBinding

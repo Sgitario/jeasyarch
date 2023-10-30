@@ -1,0 +1,2 @@
+io.jeasyarch.resources.gitremoteproject.kubernetes.KubernetesGitRemoteProjectManagedResourceBinding
+io.jeasyarch.resources.gitremoteproject.openshift.OpenShiftGitRemoteProjectManagedResourceBinding

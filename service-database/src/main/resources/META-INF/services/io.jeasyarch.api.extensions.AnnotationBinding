@@ -1,0 +1,5 @@
+io.jeasyarch.resources.containers.database.MariaDbContainerAnnotationBinding
+io.jeasyarch.resources.containers.database.MongoDbContainerAnnotationBinding
+io.jeasyarch.resources.containers.database.MySqlContainerAnnotationBinding
+io.jeasyarch.resources.containers.database.PostgresqlContainerAnnotationBinding
+io.jeasyarch.resources.containers.database.SqlServerContainerAnnotationBinding

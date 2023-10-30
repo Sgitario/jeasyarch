@@ -1,0 +1,2 @@
+io.jeasyarch.core.extensions.KubernetesExtensionBootstrap
+io.jeasyarch.core.extensions.OpenShiftExtensionBootstrap

@@ -1,0 +1,3 @@
+io.jeasyarch.resources.containers.ContainerAnnotationBinding
+io.jeasyarch.resources.localproject.LocalProjectAnnotationBinding
+io.jeasyarch.resources.gitremoteproject.GitRemoteProjectAnnotationBinding

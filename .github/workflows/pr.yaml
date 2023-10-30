@@ -1,0 +1,159 @@
+name: "Pull Request Build"
+on:
+  - pull_request
+jobs:
+  validate-format:
+    name: Validate format
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ 11 ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install JDK {{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+          check-latest: true
+          cache: 'maven'
+      - name: Check dead links in documentation
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          config-file: '.github/markdown-link-check.json'
+      - name: Build with Maven
+        run: |
+          mvn -V -B -s .github/mvn-settings.xml verify -Pframework -Dexamples -Dvalidate-format -DskipTests -DskipITs
+  linux-build-jvm:
+    name: PR - Linux - JVM build - Kind
+    runs-on: ubuntu-latest
+    needs: validate-format
+    strategy:
+      matrix:
+        java: [ 11 ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Reclaim Disk Space
+        run: .github/ci-prerequisites.sh
+      - name: Kubernetes KinD Cluster
+        uses: container-tools/kind-action@v2
+        with:
+          version: v0.11.1
+          registry: true
+      - name: Install OPM and Operator SDK tool
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          source: "github"
+          opm: "latest"
+          operator-sdk: "latest"
+      - name: Install Operator Lifecycle Manager and Operator SDK into Kind
+        run: operator-sdk olm install --version v0.23.0
+      - name: Install JDK {{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+          check-latest: true
+          cache: 'maven'
+      - name: Build
+        run: |
+          mvn -s .github/mvn-settings.xml clean install -Pframework -Dexamples -Dcoverage \
+            -Dts.services.all.image.registry=$KIND_REGISTRY \
+            -Denvironment.ci=true \
+            -Dexclude.kubernetes.tests=no
+      - name: Zip Artifacts
+        run: |
+          zip -R artifacts-linux-jvm${{ matrix.java }}.zip '*-reports/*'
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ci-artifacts
+          path: artifacts-linux-jvm${{ matrix.java }}.zip
+  windows-build-jvm:
+    name: PR - Windows - JVM build
+    runs-on: windows-latest
+    needs: validate-format
+    strategy:
+      matrix:
+        java: [ 11, 17 ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install JDK {{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+          check-latest: true
+          cache: 'maven'
+      - name: Build images
+        shell: bash
+        run: |
+          cd images
+          mvn -s ../.github/mvn-settings.xml clean install -Dquarkus.container-image.build=false
+      - name: Build
+        shell: bash
+        run: |
+          mvn -s .github/mvn-settings.xml clean install -Pframework -Dexamples -Dexclude.tests.with.tags=containers,native -Denvironment.ci=true
+      - name: Zip Artifacts
+        shell: bash
+        if: failure()
+        run: |
+          # Disambiguate windows find from cygwin find
+          /usr/bin/find . -name '*-reports/*' -type d | tar -czf artifacts-windows-jvm${{ matrix.java }}.tar -T -
+      - name: Archive artifacts
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: ci-artifacts
+          path: artifacts-windows-jvm${{ matrix.java }}.tar
+  openshift:
+    name: PR - Linux - JVM build - OCP
+    runs-on: ubuntu-20.04
+    needs: validate-format
+    strategy:
+      fail-fast: false
+      matrix:
+        openshift: [v3.11.0]
+        java: [ 17 ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install JDK {{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+          check-latest: true
+          cache: 'maven'
+      - name: Reclaim Disk Space
+        run: .github/ci-prerequisites.sh
+      - id: registry
+        uses: Sgitario/setup-container-registry@v1
+      - name: Setup OpenShift
+        uses: manusa/actions-setup-openshift@v1.1.5
+        with:
+          oc version: ${{ matrix.openshift }}
+          dns ip: 1.1.1.1
+      - name: Build
+        run: |
+          mvn -s .github/mvn-settings.xml clean install -Pframework -Dexamples -Dcoverage \
+            -Denvironment.ci=true \
+            -Dts.services.all.image.registry=$CONTAINER_REGISTRY_URL \
+            -Dexclude.openshift.tests=no
+      - name: Zip Artifacts
+        run: |
+          zip -R artifacts-linux-jvm${{ matrix.java }}.zip '*-reports/*'
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ci-artifacts
+          path: artifacts-linux-jvm${{ matrix.java }}.zip
+      - name: Zip Artifacts
+        if: failure()
+        run: |
+          zip -R manifests-ocp-jvm${{ matrix.java }}.zip 'classes/META-INF/dekorate/*'
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ci-manifests
+          path: manifests-ocp-jvm${{ matrix.java }}.zip

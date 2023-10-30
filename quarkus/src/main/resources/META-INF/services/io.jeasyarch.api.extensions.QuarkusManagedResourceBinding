@@ -1,0 +1,2 @@
+io.jeasyarch.resources.quarkus.kubernetes.KubernetesQuarkusManagedResourceBinding
+io.jeasyarch.resources.quarkus.openshift.OpenShiftQuarkusManagedResourceBinding
