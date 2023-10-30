@@ -21,5 +21,5 @@ public interface CustomResourceManagedResourceBinding {
      * @return
      */
     ManagedResource init(JEasyArchContext context, Service service, String resource,
-                         Class<? extends CustomResource<CustomResourceSpec, CustomResourceStatus>> type);
+            Class<? extends CustomResource<CustomResourceSpec, CustomResourceStatus>> type);
 }

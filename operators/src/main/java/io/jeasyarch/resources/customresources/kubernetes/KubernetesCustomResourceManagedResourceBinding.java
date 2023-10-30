@@ -17,7 +17,7 @@ public class KubernetesCustomResourceManagedResourceBinding implements CustomRes
 
     @Override
     public ManagedResource init(JEasyArchContext context, Service service, String resource,
-                                Class<? extends CustomResource<CustomResourceSpec, CustomResourceStatus>> type) {
+            Class<? extends CustomResource<CustomResourceSpec, CustomResourceStatus>> type) {
         return new KubernetesCustomResourceManagedResource(resource, type);
     }
 }

@@ -73,6 +73,10 @@ public abstract class GenericContainerManagedResource extends ManagedResource {
         innerContainer.withStartupTimeout(context.getConfiguration().getStartupTimeout());
         innerContainer.withEnv(resolveProperties());
 
+        // SMELL: Workaround for https://github.com/testcontainers/testcontainers-java/issues/7539
+        // This is because testcontainers randomly fails to start a container when using Podman socket.
+        innerContainer.withStartupAttempts(3);
+
         loggingHandler = new TestContainersLoggingHandler(context.getOwner(), innerContainer);
         loggingHandler.startWatching();
 

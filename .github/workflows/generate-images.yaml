@@ -27,5 +27,5 @@ jobs:
       - name: Generate Images
         run: |
           cd images
-          CONTAINER_REGISTRY=quay.io/jcarvaja
+          CONTAINER_REGISTRY=quay.io/${{secrets.QUAY_USER}}
           mvn clean install -Dsamples.container-image.registry=$CONTAINER_REGISTRY -Dsamples.container-image.push=true
