@@ -51,13 +51,6 @@ public class DatabaseService extends BaseService<DatabaseService> {
                 .replaceAll(PORT, "" + getFirstMappedPort()).replaceAll(DATABASE, getDatabase());
     }
 
-    public DatabaseService overrideDefaults(String user, String password, String database) {
-        this.user = user;
-        this.password = password;
-        this.database = database;
-        return this;
-    }
-
     public DatabaseService with(String user, String password, String database) {
         withUser(user);
         withPassword(password);
@@ -66,32 +59,16 @@ public class DatabaseService extends BaseService<DatabaseService> {
     }
 
     public DatabaseService withUser(String user) {
-        if (StringUtils.isEmpty(userProperty)) {
-            throw new UnsupportedOperationException(
-                    "You cannot configure the user in the current database because the user property has not been provided");
-        }
-
         this.user = user;
         return this;
     }
 
     public DatabaseService withPassword(String password) {
-        if (StringUtils.isEmpty(passwordProperty)) {
-            throw new UnsupportedOperationException("You cannot configure the password in the current database because "
-                    + "the password property has not been provided");
-        }
-
         this.password = password;
         return this;
     }
 
     public DatabaseService withDatabase(String database) {
-        if (StringUtils.isEmpty(databaseNameProperty)) {
-            throw new UnsupportedOperationException(
-                    "You cannot configure the database name in the current database because "
-                            + "the database name property has not been provided");
-        }
-
         this.database = database;
         return this;
     }
