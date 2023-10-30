@@ -113,7 +113,7 @@ public final class ManifestsUtils {
         enrichProperties.putAll(extraTemplateProperties);
         deployment.getSpec().getTemplate().getSpec().getContainers()
                 .forEach(container -> enrichProperties.entrySet().forEach(property -> {
-                    String key = property.getKey();
+                    String key = toEnvVarName(property.getKey());
                     EnvVar envVar = getEnvVarByKey(key, container);
                     if (envVar == null) {
                         container.getEnv().add(new EnvVar(key, property.getValue(), null));
@@ -230,5 +230,24 @@ public final class ManifestsUtils {
     private static String normalizeName(String name) {
         return StringUtils.removeStart(name, PropertiesUtils.SLASH).replaceAll(Pattern.quote("."), "-")
                 .replaceAll(PropertiesUtils.SLASH, "-");
+    }
+
+    /**
+     * Replace each character that is neither alphanumeric nor _ with _ then convert the name to upper case, e.g.
+     * quarkus.datasource.jdbc.initial-size -> QUARKUS_DATASOURCE_JDBC_INITIAL_SIZE See also:
+     * io.smallrye.config.common.utils.StringUtil#replaceNonAlphanumericByUnderscores(java.lang.String)
+     */
+    private static String toEnvVarName(final String name) {
+        int length = name.length();
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            char c = name.charAt(i);
+            if ('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || '0' <= c && c <= '9') {
+                sb.append(c);
+            } else {
+                sb.append('_');
+            }
+        }
+        return sb.toString().toUpperCase();
     }
 }
