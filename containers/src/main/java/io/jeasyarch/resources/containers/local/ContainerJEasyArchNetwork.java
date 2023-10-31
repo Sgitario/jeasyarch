@@ -14,14 +14,14 @@ import com.github.dockerjava.api.command.CreateNetworkCmd;
 import io.jeasyarch.core.JEasyArchContext;
 import io.jeasyarch.core.ServiceContext;
 
-public class DockerJEasyArchNetwork implements Network, ExtensionContext.Store.CloseableResource {
+public class ContainerJEasyArchNetwork implements Network, ExtensionContext.Store.CloseableResource {
 
     private static final String NETWORK = "internal.container.network";
 
     private final JEasyArchContext context;
     private final Set<ServiceContext> services = new HashSet<>();
 
-    public DockerJEasyArchNetwork(JEasyArchContext context) {
+    public ContainerJEasyArchNetwork(JEasyArchContext context) {
         this.context = context;
         CreateNetworkCmd createNetworkCmd = DockerClientFactory.instance().client().createNetworkCmd();
         createNetworkCmd.withName(context.getId());
@@ -62,8 +62,8 @@ public class DockerJEasyArchNetwork implements Network, ExtensionContext.Store.C
         return statement;
     }
 
-    public static final DockerJEasyArchNetwork getOrCreate(JEasyArchContext context) {
-        return context.getTestStore().getOrComputeIfAbsent(NETWORK, k -> new DockerJEasyArchNetwork(context),
-                DockerJEasyArchNetwork.class);
+    public static final ContainerJEasyArchNetwork getOrCreate(JEasyArchContext context) {
+        return context.getTestStore().getOrComputeIfAbsent(NETWORK, k -> new ContainerJEasyArchNetwork(context),
+                ContainerJEasyArchNetwork.class);
     }
 }

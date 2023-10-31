@@ -3,7 +3,7 @@ package io.jeasyarch.resources.gitremoteproject.kubernetes;
 import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.resources.gitremoteproject.GitRemoteProjectResource;
 import io.jeasyarch.resources.kubernetes.KubernetesManagedResource;
-import io.jeasyarch.utils.DockerUtils;
+import io.jeasyarch.utils.ContainerUtils;
 import io.jeasyarch.utils.PropertiesUtils;
 
 public class KubernetesGitRemoteProjectManagedResource extends KubernetesManagedResource {
@@ -35,7 +35,7 @@ public class KubernetesGitRemoteProjectManagedResource extends KubernetesManaged
     protected void init(ServiceContext context) {
         super.init(context);
         this.resource = new GitRemoteProjectResource(context, repo, branch, contextDir, buildCommands, dockerfile);
-        DockerUtils.push(context);
+        ContainerUtils.push(context);
     }
 
     @Override

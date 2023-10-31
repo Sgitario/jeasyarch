@@ -3,7 +3,7 @@ package io.jeasyarch.resources.spring.kubernetes;
 import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.resources.kubernetes.KubernetesManagedResource;
 import io.jeasyarch.resources.spring.common.SpringResource;
-import io.jeasyarch.utils.DockerUtils;
+import io.jeasyarch.utils.ContainerUtils;
 import io.jeasyarch.utils.SpringUtils;
 
 public class ContainerRegistrySpringKubernetesManagedResource extends KubernetesManagedResource {
@@ -52,7 +52,7 @@ public class ContainerRegistrySpringKubernetesManagedResource extends Kubernetes
     }
 
     private String createImageAndPush() {
-        return DockerUtils.createImageAndPush(context, resource.getRunner());
+        return ContainerUtils.createImageAndPush(context, resource.getRunner());
     }
 
 }

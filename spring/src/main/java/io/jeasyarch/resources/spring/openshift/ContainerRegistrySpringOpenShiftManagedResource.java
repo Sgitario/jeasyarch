@@ -3,7 +3,7 @@ package io.jeasyarch.resources.spring.openshift;
 import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.resources.openshift.OpenShiftManagedResource;
 import io.jeasyarch.resources.spring.common.SpringResource;
-import io.jeasyarch.utils.DockerUtils;
+import io.jeasyarch.utils.ContainerUtils;
 import io.jeasyarch.utils.SpringUtils;
 
 public class ContainerRegistrySpringOpenShiftManagedResource extends OpenShiftManagedResource {
@@ -52,7 +52,7 @@ public class ContainerRegistrySpringOpenShiftManagedResource extends OpenShiftMa
     }
 
     private String createImageAndPush() {
-        return DockerUtils.createImageAndPush(context, resource.getRunner());
+        return ContainerUtils.createImageAndPush(context, resource.getRunner());
     }
 
 }

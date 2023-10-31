@@ -13,7 +13,7 @@ import io.jeasyarch.api.Dependency;
 import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.resources.openshift.OpenShiftManagedResource;
 import io.jeasyarch.resources.quarkus.common.BootstrapQuarkusResource;
-import io.jeasyarch.utils.DockerUtils;
+import io.jeasyarch.utils.ContainerUtils;
 import io.jeasyarch.utils.FileUtils;
 import io.jeasyarch.utils.OutputUtils;
 import io.jeasyarch.utils.QuarkusUtils;
@@ -87,7 +87,7 @@ public class ContainerRegistryProdModeBootstrapQuarkusOpenShiftManagedResource e
 
     private String createImageAndPush() {
         String dockerFile = QuarkusUtils.getDockerfile(resource.getLaunchMode());
-        return DockerUtils.createImageAndPush(context, dockerFile, resource.getRunner());
+        return ContainerUtils.createImageAndPush(context, dockerFile, resource.getRunner());
     }
 
 }

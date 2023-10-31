@@ -1,6 +1,6 @@
 package io.jeasyarch.resources.quarkus.kubernetes;
 
-import static io.jeasyarch.utils.DockerUtils.getUniqueName;
+import static io.jeasyarch.utils.ContainerUtils.getUniqueName;
 import static io.jeasyarch.utils.ManifestsUtils.LABEL_CONTEXT_ID;
 import static io.jeasyarch.utils.ManifestsUtils.LABEL_TO_WATCH_FOR_LOGS;
 import static io.jeasyarch.utils.MavenUtils.BATCH_MODE;

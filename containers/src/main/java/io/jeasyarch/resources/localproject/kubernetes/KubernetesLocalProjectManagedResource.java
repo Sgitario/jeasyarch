@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.resources.kubernetes.KubernetesManagedResource;
 import io.jeasyarch.resources.localproject.LocalProjectResource;
-import io.jeasyarch.utils.DockerUtils;
+import io.jeasyarch.utils.ContainerUtils;
 import io.jeasyarch.utils.PropertiesUtils;
 
 public class KubernetesLocalProjectManagedResource extends KubernetesManagedResource {
@@ -43,7 +43,7 @@ public class KubernetesLocalProjectManagedResource extends KubernetesManagedReso
     protected void init(ServiceContext context) {
         super.init(context);
         this.resource = new LocalProjectResource(context, location, buildCommands, dockerfile);
-        DockerUtils.push(context);
+        ContainerUtils.push(context);
     }
 
     @Override

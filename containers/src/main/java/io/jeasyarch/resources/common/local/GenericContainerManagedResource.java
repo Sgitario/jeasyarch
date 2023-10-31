@@ -13,14 +13,14 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 import org.testcontainers.utility.MountableFile;
 
-import io.jeasyarch.configuration.DockerServiceConfiguration;
-import io.jeasyarch.configuration.DockerServiceConfigurationBuilder;
+import io.jeasyarch.configuration.ContainerServiceConfiguration;
+import io.jeasyarch.configuration.ContainerServiceConfigurationBuilder;
 import io.jeasyarch.core.ManagedResource;
 import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.logging.Log;
 import io.jeasyarch.logging.LoggingHandler;
 import io.jeasyarch.logging.TestContainersLoggingHandler;
-import io.jeasyarch.resources.containers.local.DockerJEasyArchNetwork;
+import io.jeasyarch.resources.containers.local.ContainerJEasyArchNetwork;
 import io.jeasyarch.utils.OutputUtils;
 import io.jeasyarch.utils.PropertiesUtils;
 
@@ -30,7 +30,7 @@ public abstract class GenericContainerManagedResource extends ManagedResource {
     private final String[] command;
     private final Integer[] ports;
 
-    private DockerJEasyArchNetwork network;
+    private ContainerJEasyArchNetwork network;
     private GenericContainer<?> innerContainer;
     private LoggingHandler loggingHandler;
 
@@ -40,15 +40,13 @@ public abstract class GenericContainerManagedResource extends ManagedResource {
         this.ports = Arrays.stream(ports).boxed().toArray(Integer[]::new);
     }
 
-    protected abstract String getImage();
-
     @Override
     public void start() {
         if (isRunning()) {
             return;
         }
 
-        network = DockerJEasyArchNetwork.getOrCreate(context.getJEasyArchContext());
+        network = ContainerJEasyArchNetwork.getOrCreate(context.getJEasyArchContext());
         network.attachService(context);
 
         innerContainer = new GenericContainer<>(getImage());
@@ -122,11 +120,16 @@ public abstract class GenericContainerManagedResource extends ManagedResource {
     @Override
     protected void init(ServiceContext context) {
         super.init(context);
-        context.loadCustomConfiguration(DockerServiceConfiguration.class, new DockerServiceConfigurationBuilder());
+        context.loadCustomConfiguration(ContainerServiceConfiguration.class,
+                new ContainerServiceConfigurationBuilder());
+    }
+
+    protected String getImage() {
+        return context.getConfigurationAs(ContainerServiceConfiguration.class).getImage();
     }
 
     private boolean isPrivileged() {
-        return context.getConfigurationAs(DockerServiceConfiguration.class).isPrivileged();
+        return context.getConfigurationAs(ContainerServiceConfiguration.class).isPrivileged();
     }
 
     private void doStart() {

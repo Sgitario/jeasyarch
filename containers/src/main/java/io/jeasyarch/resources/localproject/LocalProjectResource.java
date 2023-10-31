@@ -2,7 +2,7 @@ package io.jeasyarch.resources.localproject;
 
 import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.utils.Command;
-import io.jeasyarch.utils.DockerUtils;
+import io.jeasyarch.utils.ContainerUtils;
 
 public class LocalProjectResource {
 
@@ -18,7 +18,7 @@ public class LocalProjectResource {
         }
 
         // generate image
-        generatedImage = DockerUtils.build(context, dockerfile, location);
+        generatedImage = ContainerUtils.build(context, dockerfile, location);
     }
 
     public String getGeneratedImage() {

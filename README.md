@@ -1114,7 +1114,7 @@ public class MyTest {
 }
 ```
 
-As part of the JEasyArch extension configuration, there are additional annotations, for example: `@KubernetesServiceConfiguration`, `@DockerServiceConfiguration`, `@QuarkusServiceConfiguration`, ... 
+As part of the JEasyArch extension configuration, there are additional annotations, for example: `@KubernetesServiceConfiguration`, `@ContainerServiceConfiguration`, `@QuarkusServiceConfiguration`, ... 
 
 For (2) file properties, you can add a properties file named `test.properties` at the `src/test/resources` folder where to place the service's properties. To use the same properties file for a multi-module test suite, you specify it using the system property `-Dts.test.resources.file.location=path/to/custom-global.properties`.
 
@@ -1181,13 +1181,14 @@ The configuration that is only available for OpenShift deployments is:
 | Use route                                | Expose the service using OpenShift routes. Default is false.                                                                                                              |  | `ts.services.<SERVICE NAME>.openshift.use-route=true`       | `@OpenShiftServiceConfiguration(forService = "<SERVICE NAME>", useRoute = true)`       |
 | Use a service account | Use a custom service account name. |  | `ts.services.<SERVICE NAME>.openshift.service-account=my-svc` | `@OpenShiftServiceConfiguration(forService = "<SERVICE NAME>", serviceAccount = "my-svc")` |
 
-### Docker Service Configuration
+### Container Service Configuration
 
 The configuration that is only available when running services annotated with `@Container` in local is:
 
-| Name | Description | Default | Property | Annotation | 
-|------|-------------|---------|----------|------------| 
-| Privileged | Configure the running container using privileged mode | false | `ts.services.<SERVICE NAME>.docker.privileged-mode=FALSE` | `@DockerServiceConfiguration(forService = "<SERVICE NAME>", privileged = false)` |
+| Name       | Description                                           | Default | Property                                                     | Annotation                                                                            | 
+|------------|-------------------------------------------------------|--------|--------------------------------------------------------------|---------------------------------------------------------------------------------------| 
+| Privileged | Configure the running container using privileged mode | false  | `ts.services.<SERVICE NAME>.container.privileged-mode=FALSE` | `@ContainerServiceConfiguration(forService = "<SERVICE NAME>", privileged = false)`   |
+| Image      | Configure the container image                         |        | `ts.services.<SERVICE NAME>.container.image=image/from`      | `@ContainerServiceConfiguration(forService = "<SERVICE NAME>", image = "image/from")` |
 
 ### Quarkus Service Configuration
 
