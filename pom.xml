@@ -55,6 +55,8 @@
     <kubernetes-client.version>6.9.1</kubernetes-client.version>
     <jackson-annotations.version>2.15.1</jackson-annotations.version>
     <maven-model.version>3.9.2</maven-model.version>
+    <postgresql.version>42.6.0</postgresql.version>
+    <mysql.version>8.2.0</mysql.version>
     <!-- Provided Dependencies -->
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
@@ -185,6 +187,16 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>${jackson-annotations.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgresql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <version>${mysql.version}</version>
       </dependency>
       <!-- Provided Dependencies -->
       <dependency>

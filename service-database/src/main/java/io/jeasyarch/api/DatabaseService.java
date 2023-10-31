@@ -1,5 +1,13 @@
 package io.jeasyarch.api;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
@@ -118,5 +126,20 @@ public class DatabaseService extends BaseService<DatabaseService> {
         }
 
         return super.onPreStart(action);
+    }
+
+    public void openStatement(Consumer<Statement> consumer) {
+        Properties props = new Properties();
+        props.setProperty("user", getUser());
+        props.setProperty("password", getPassword());
+        props.setProperty("database", getDatabase());
+        try (Connection conn = DriverManager.getConnection(getJdbcUrl(), props);
+                Statement statement = conn.createStatement()) {
+
+            consumer.accept(statement);
+
+        } catch (SQLException e) {
+            fail("Failed to execute the query. Cause: " + e.getMessage());
+        }
     }
 }
