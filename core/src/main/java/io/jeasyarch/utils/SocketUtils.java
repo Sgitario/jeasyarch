@@ -25,7 +25,7 @@ public final class SocketUtils {
         return findNextAvailablePort(service);
     }
 
-    public static int findRandomAvailablePort(Service service) {
+    private static int findRandomAvailablePort(Service service) {
         int portRange = portRangeMax(service) - portRangeMin(service);
         int candidatePort;
         int searchCounter = 0;
@@ -43,7 +43,7 @@ public final class SocketUtils {
         return candidatePort;
     }
 
-    public static synchronized int findNextAvailablePort(Service service) {
+    private static synchronized int findNextAvailablePort(Service service) {
         int portRangeMin = portRangeMin(service);
         int candidate;
         do {
