@@ -111,6 +111,8 @@ jobs:
     name: PR - Linux - JVM build - OCP
     runs-on: ubuntu-20.04
     needs: validate-format
+    # the step "manusa/actions-setup-openshift" is broken:
+    if: false
     strategy:
       fail-fast: false
       matrix:
