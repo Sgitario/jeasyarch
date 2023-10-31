@@ -10,14 +10,21 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@Repeatable(DockerServiceConfigurations.class)
-public @interface DockerServiceConfiguration {
+@Repeatable(ContainerServiceConfigurations.class)
+public @interface ContainerServiceConfiguration {
     String forService();
 
     /**
      * Configure the running container using privileged mode.
      * <p>
-     * Fallback service property: "ts.services.<SERVICE NAME>.docker.privileged-mode".
+     * Fallback service property: "ts.services.<SERVICE NAME>.container.privileged-mode".
      */
     boolean privileged() default false;
+
+    /**
+     * Configure the container image.
+     * <p>
+     * Fallback service property: "ts.services.<SERVICE NAME>.container.image".
+     */
+    String image() default "";
 }

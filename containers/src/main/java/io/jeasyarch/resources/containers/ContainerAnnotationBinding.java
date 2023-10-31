@@ -9,7 +9,7 @@ import io.jeasyarch.api.extensions.AnnotationBinding;
 import io.jeasyarch.api.extensions.ContainerManagedResourceBinding;
 import io.jeasyarch.core.JEasyArchContext;
 import io.jeasyarch.core.ManagedResource;
-import io.jeasyarch.resources.containers.local.DockerContainerManagedResource;
+import io.jeasyarch.resources.containers.local.DefaultGenericContainerManagedResource;
 
 public class ContainerAnnotationBinding implements AnnotationBinding {
 
@@ -37,7 +37,7 @@ public class ContainerAnnotationBinding implements AnnotationBinding {
         }
 
         // If none handler found, then the container will be running on localhost by default
-        return new DockerContainerManagedResource(image, expectedLog, command, ports);
+        return new DefaultGenericContainerManagedResource(image, expectedLog, command, ports);
     }
 
 }

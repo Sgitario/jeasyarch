@@ -8,7 +8,7 @@ import io.jeasyarch.resources.common.local.GenericContainerManagedResource;
 import io.jeasyarch.resources.localproject.LocalProjectResource;
 import io.jeasyarch.utils.PropertiesUtils;
 
-public class DockerLocalProjectManagedResource extends GenericContainerManagedResource {
+public class LocalProjectManagedGenericContainerManagedResource extends GenericContainerManagedResource {
 
     private final String location;
     private final String[] buildCommands;
@@ -16,8 +16,8 @@ public class DockerLocalProjectManagedResource extends GenericContainerManagedRe
 
     private LocalProjectResource resource;
 
-    public DockerLocalProjectManagedResource(String location, String[] buildCommands, String dockerfile,
-            String expectedLog, String[] command, int[] ports) {
+    public LocalProjectManagedGenericContainerManagedResource(String location, String[] buildCommands,
+            String dockerfile, String expectedLog, String[] command, int[] ports) {
         super(expectedLog, command, ports);
         this.location = PropertiesUtils.resolveProperty(location);
         this.buildCommands = PropertiesUtils.resolveProperties(buildCommands);

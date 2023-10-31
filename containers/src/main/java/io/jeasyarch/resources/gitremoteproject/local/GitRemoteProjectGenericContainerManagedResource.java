@@ -7,7 +7,7 @@ import io.jeasyarch.resources.common.local.GenericContainerManagedResource;
 import io.jeasyarch.resources.gitremoteproject.GitRemoteProjectResource;
 import io.jeasyarch.utils.PropertiesUtils;
 
-public class DockerGitRemoteProjectManagedResource extends GenericContainerManagedResource {
+public class GitRemoteProjectGenericContainerManagedResource extends GenericContainerManagedResource {
 
     private final String repo;
     private final String branch;
@@ -17,8 +17,8 @@ public class DockerGitRemoteProjectManagedResource extends GenericContainerManag
 
     private GitRemoteProjectResource resource;
 
-    public DockerGitRemoteProjectManagedResource(String repo, String branch, String contextDir, String[] buildCommands,
-            String dockerfile, String expectedLog, String[] command, int[] ports) {
+    public GitRemoteProjectGenericContainerManagedResource(String repo, String branch, String contextDir,
+            String[] buildCommands, String dockerfile, String expectedLog, String[] command, int[] ports) {
         super(expectedLog, command, ports);
         this.repo = PropertiesUtils.resolveProperty(repo);
         this.branch = PropertiesUtils.resolveProperty(branch);

@@ -3,7 +3,7 @@ package io.jeasyarch.resources.gitremoteproject.openshift;
 import io.jeasyarch.core.ServiceContext;
 import io.jeasyarch.resources.gitremoteproject.GitRemoteProjectResource;
 import io.jeasyarch.resources.openshift.OpenShiftManagedResource;
-import io.jeasyarch.utils.DockerUtils;
+import io.jeasyarch.utils.ContainerUtils;
 import io.jeasyarch.utils.PropertiesUtils;
 
 public class OpenShiftGitRemoteProjectManagedResource extends OpenShiftManagedResource {
@@ -35,7 +35,7 @@ public class OpenShiftGitRemoteProjectManagedResource extends OpenShiftManagedRe
     protected void init(ServiceContext context) {
         super.init(context);
         this.resource = new GitRemoteProjectResource(context, repo, branch, contextDir, buildCommands, dockerfile);
-        DockerUtils.push(context);
+        ContainerUtils.push(context);
     }
 
     @Override

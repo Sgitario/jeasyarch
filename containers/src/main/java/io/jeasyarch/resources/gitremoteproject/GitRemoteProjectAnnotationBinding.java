@@ -9,7 +9,7 @@ import io.jeasyarch.api.extensions.AnnotationBinding;
 import io.jeasyarch.api.extensions.GitRemoteProjectManagedResourceBinding;
 import io.jeasyarch.core.JEasyArchContext;
 import io.jeasyarch.core.ManagedResource;
-import io.jeasyarch.resources.gitremoteproject.local.DockerGitRemoteProjectManagedResource;
+import io.jeasyarch.resources.gitremoteproject.local.GitRemoteProjectGenericContainerManagedResource;
 
 public class GitRemoteProjectAnnotationBinding implements AnnotationBinding {
 
@@ -32,9 +32,9 @@ public class GitRemoteProjectAnnotationBinding implements AnnotationBinding {
         }
 
         // If none handler found, then the container will be running on localhost by default
-        return new DockerGitRemoteProjectManagedResource(metadata.repo(), metadata.branch(), metadata.contextDir(),
-                metadata.buildCommands(), metadata.dockerfile(), metadata.expectedLog(), metadata.command(),
-                metadata.ports());
+        return new GitRemoteProjectGenericContainerManagedResource(metadata.repo(), metadata.branch(),
+                metadata.contextDir(), metadata.buildCommands(), metadata.dockerfile(), metadata.expectedLog(),
+                metadata.command(), metadata.ports());
     }
 
 }

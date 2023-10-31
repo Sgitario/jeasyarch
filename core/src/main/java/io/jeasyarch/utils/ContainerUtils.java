@@ -7,11 +7,11 @@ import java.nio.file.Paths;
 
 import io.jeasyarch.core.ServiceContext;
 
-public final class DockerUtils {
+public final class ContainerUtils {
     private static final String DOCKER = "docker";
     private static final String DOCKERFILE = "Dockerfile";
 
-    private DockerUtils() {
+    private ContainerUtils() {
 
     }
 
