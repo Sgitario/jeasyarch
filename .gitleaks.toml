@@ -1,0 +1,14 @@
+[allowlist]
+description = "Global Allowlist"
+
+# Ignore based on any subset of the file path
+paths = [
+    # Ignore password of SqlServerContainerAnnotationBinding
+    '''My1337p@ssworD''',
+]
+
+# Ignore based on any subset of the line
+regexes = [
+    # Ignore lines containing pickles
+    '''pickles''',
+]
