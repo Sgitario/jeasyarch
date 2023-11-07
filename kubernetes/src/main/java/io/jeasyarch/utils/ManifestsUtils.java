@@ -1,8 +1,5 @@
 package io.jeasyarch.utils;
 
-import static io.jeasyarch.utils.OutputUtils.getFilePath;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,6 +12,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Assertions;
 
 import io.fabric8.kubernetes.api.model.ConfigMapVolumeSourceBuilder;
 import io.fabric8.kubernetes.api.model.Container;
@@ -58,7 +56,7 @@ public final class ManifestsUtils {
             FileOutputStream os = new FileOutputStream(target.toFile());
             Serialization.yamlMapper().writeValue(os, value);
         } catch (IOException e) {
-            fail("Failed adding properties into template. Caused by " + e.getMessage());
+            Assertions.fail("Failed adding properties into template. Caused by " + e.getMessage());
         }
     }
 
@@ -155,7 +153,7 @@ public final class ManifestsUtils {
                 String secretName = normalizeName(path);
 
                 // Push secret file
-                client.createSecretFromFile(secretName, getFilePath(path));
+                client.createSecretFromFile(secretName, OutputUtils.getFilePath(path));
 
                 // Add the volume
                 Volume volume = new VolumeBuilder().withName(secretName)
@@ -209,7 +207,7 @@ public final class ManifestsUtils {
     }
 
     private static String getFileContent(String path) {
-        String filePath = getFilePath(path);
+        String filePath = OutputUtils.getFilePath(path);
         if (Files.exists(Path.of(filePath))) {
             // from file system
             return FileUtils.loadFile(Path.of(filePath).toFile());

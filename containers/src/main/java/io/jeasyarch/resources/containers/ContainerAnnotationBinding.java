@@ -1,7 +1,7 @@
 package io.jeasyarch.resources.containers;
 
 import java.lang.annotation.Annotation;
-import java.util.ServiceLoader;
+import java.util.List;
 
 import io.jeasyarch.api.Container;
 import io.jeasyarch.api.Service;
@@ -10,10 +10,11 @@ import io.jeasyarch.api.extensions.ContainerManagedResourceBinding;
 import io.jeasyarch.core.JEasyArchContext;
 import io.jeasyarch.core.ManagedResource;
 import io.jeasyarch.resources.containers.local.DefaultGenericContainerManagedResource;
+import io.jeasyarch.utils.ServiceLoaderUtils;
 
 public class ContainerAnnotationBinding implements AnnotationBinding {
 
-    private final ServiceLoader<ContainerManagedResourceBinding> containerBindings = ServiceLoader
+    private final List<ContainerManagedResourceBinding> containerBindings = ServiceLoaderUtils
             .load(ContainerManagedResourceBinding.class);
 
     @Override

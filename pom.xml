@@ -53,7 +53,7 @@
     <apache.commons-io.version>2.15.0</apache.commons-io.version>
     <apache.commons-logging-api.version>1.1</apache.commons-logging-api.version>
     <kubernetes-client.version>6.9.2</kubernetes-client.version>
-    <jackson-annotations.version>2.15.3</jackson-annotations.version>
+    <jackson.version>2.15.3</jackson.version>
     <maven-model.version>3.9.5</maven-model.version>
     <postgresql.version>42.6.0</postgresql.version>
     <mysql.version>8.2.0</mysql.version>
@@ -91,6 +91,16 @@
       <dependency>
         <groupId>io.jeasyarch</groupId>
         <artifactId>core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jeasyarch</groupId>
+        <artifactId>kubernetes</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jeasyarch</groupId>
+        <artifactId>openshift</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -182,11 +192,10 @@
         <artifactId>kubernetes-httpclient-okhttp</artifactId>
         <version>${kubernetes-client.version}</version>
       </dependency>
-      <!-- SMELL: This version is required by Fabric8 dependency... -->
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
-        <version>${jackson-annotations.version}</version>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
       </dependency>
       <dependency>
         <groupId>org.postgresql</groupId>
@@ -356,6 +365,8 @@
       </activation>
       <modules>
         <module>core</module>
+        <module>kubernetes</module>
+        <module>openshift</module>
         <module>benchmark</module>
         <module>containers</module>
         <module>operators</module>
@@ -558,6 +569,8 @@
       </activation>
       <modules>
         <module>core</module>
+        <module>kubernetes</module>
+        <module>openshift</module>
         <module>benchmark</module>
         <module>containers</module>
         <module>operators</module>

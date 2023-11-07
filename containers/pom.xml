@@ -26,6 +26,16 @@
       <version>${testcontainers.version}</version>
     </dependency>
     <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>kubernetes</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>openshift</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
       <version>${javax.version}</version>

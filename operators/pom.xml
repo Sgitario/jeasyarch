@@ -15,6 +15,11 @@
       <artifactId>core</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>openshift</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>openshift-model-operatorhub</artifactId>
     </dependency>

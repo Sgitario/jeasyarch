@@ -39,6 +39,11 @@
       <artifactId>quarkus</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>openshift</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.ServiceLoader;
-import java.util.ServiceLoader.Provider;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.AfterAllCallback;
@@ -30,12 +29,13 @@ import io.jeasyarch.api.extensions.ExtensionBootstrap;
 import io.jeasyarch.logging.Log;
 import io.jeasyarch.utils.InjectUtils;
 import io.jeasyarch.utils.ReflectionUtils;
+import io.jeasyarch.utils.ServiceLoaderUtils;
 
 public class JEasyArchExtension implements BeforeAllCallback, AfterAllCallback, BeforeEachCallback, AfterEachCallback,
         ParameterResolver, LifecycleMethodExecutionExceptionHandler, TestWatcher {
 
-    private final ServiceLoader<AnnotationBinding> bindingsRegistry = ServiceLoader.load(AnnotationBinding.class);
-    private final ServiceLoader<ExtensionBootstrap> extensionsRegistry = ServiceLoader.load(ExtensionBootstrap.class);
+    private final List<AnnotationBinding> bindingsRegistry = ServiceLoaderUtils.load(AnnotationBinding.class);
+    private final List<ExtensionBootstrap> extensionsRegistry = ServiceLoaderUtils.load(ExtensionBootstrap.class);
 
     private List<ServiceContext> services = new ArrayList<>();
     private JEasyArchContext context;
@@ -234,7 +234,7 @@ public class JEasyArchExtension implements BeforeAllCallback, AfterAllCallback, 
     }
 
     private Optional<AnnotationBinding> getAnnotationBinding(Annotation... annotations) {
-        return bindingsRegistry.stream().map(Provider::get).filter(b -> b.isFor(annotations)).findFirst();
+        return bindingsRegistry.stream().filter(b -> b.isFor(annotations)).findFirst();
     }
 
     private ManagedResource getManagedResource(String name, Service service, AnnotationBinding binding,
@@ -282,15 +282,10 @@ public class JEasyArchExtension implements BeforeAllCallback, AfterAllCallback, 
     }
 
     private List<ExtensionBootstrap> initExtensions() {
-        List<ExtensionBootstrap> list = new ArrayList<>();
-        for (ExtensionBootstrap binding : extensionsRegistry) {
-            if (binding.appliesFor(context)) {
-                binding.updateContext(context);
-                list.add(binding);
-            }
-        }
-
-        return list;
+        return extensionsRegistry.stream().filter(binding -> binding.appliesFor(context)).map(binding -> {
+            binding.updateContext(context);
+            return binding;
+        }).collect(Collectors.toList());
     }
 
     private void deleteLogIfTestSuitePassed() {

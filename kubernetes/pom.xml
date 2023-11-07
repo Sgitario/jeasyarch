@@ -7,27 +7,20 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>service-kafka</artifactId>
-  <name>JEasyArch - Service - Kafka</name>
+  <artifactId>kubernetes</artifactId>
+  <name>JEasyArch - Kubernetes</name>
   <dependencies>
     <dependency>
       <groupId>io.jeasyarch</groupId>
-      <artifactId>operators</artifactId>
+      <artifactId>core</artifactId>
     </dependency>
     <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>kubernetes-client</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>io.jeasyarch</groupId>
-      <artifactId>containers</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.jeasyarch</groupId>
-      <artifactId>kubernetes</artifactId>
-      <scope>test</scope>
+      <groupId>io.fabric8</groupId>
+      <artifactId>kubernetes-httpclient-okhttp</artifactId>
     </dependency>
   </dependencies>
 </project>

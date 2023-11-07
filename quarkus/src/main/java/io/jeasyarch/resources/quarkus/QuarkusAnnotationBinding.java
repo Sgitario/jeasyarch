@@ -1,7 +1,7 @@
 package io.jeasyarch.resources.quarkus;
 
 import java.lang.annotation.Annotation;
-import java.util.ServiceLoader;
+import java.util.List;
 
 import io.jeasyarch.api.Quarkus;
 import io.jeasyarch.api.Service;
@@ -10,10 +10,11 @@ import io.jeasyarch.api.extensions.QuarkusManagedResourceBinding;
 import io.jeasyarch.core.JEasyArchContext;
 import io.jeasyarch.core.ManagedResource;
 import io.jeasyarch.resources.quarkus.local.ProdModeBootstrapQuarkusJavaProcessManagedResource;
+import io.jeasyarch.utils.ServiceLoaderUtils;
 
 public class QuarkusAnnotationBinding implements AnnotationBinding {
 
-    private final ServiceLoader<QuarkusManagedResourceBinding> customBindings = ServiceLoader
+    private final List<QuarkusManagedResourceBinding> customBindings = ServiceLoaderUtils
             .load(QuarkusManagedResourceBinding.class);
 
     @Override
