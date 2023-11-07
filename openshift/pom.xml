@@ -7,27 +7,16 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>service-kafka</artifactId>
-  <name>JEasyArch - Service - Kafka</name>
+  <artifactId>openshift</artifactId>
+  <name>JEasyArch - OpenShift</name>
   <dependencies>
     <dependency>
       <groupId>io.jeasyarch</groupId>
-      <artifactId>operators</artifactId>
+      <artifactId>kubernetes</artifactId>
     </dependency>
     <dependency>
       <groupId>io.fabric8</groupId>
-      <artifactId>kubernetes-client</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.jeasyarch</groupId>
-      <artifactId>containers</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.jeasyarch</groupId>
-      <artifactId>kubernetes</artifactId>
-      <scope>test</scope>
+      <artifactId>openshift-client</artifactId>
     </dependency>
   </dependencies>
 </project>

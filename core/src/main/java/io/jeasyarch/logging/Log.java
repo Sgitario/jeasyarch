@@ -37,7 +37,6 @@ public final class Log {
     private static final String COLOR_DEFAULT = "\u001b[32m";
 
     private static final List<String> ALL_SERVICE_COLORS = Arrays.asList("\u001b[0;34m", // Blue
-            "\u001b[0;91m", // Red
             "\u001b[0;92m", // Green
             "\u001b[0;93m", // Yellow
             "\u001b[0;94m", // Blue

@@ -44,6 +44,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>kubernetes</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.keycloak</groupId>
       <artifactId>keycloak-authz-client</artifactId>
       <version>${keycloak-authz-client.version}</version>

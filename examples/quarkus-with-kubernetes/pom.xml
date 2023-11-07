@@ -43,6 +43,11 @@
       <artifactId>quarkus</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>kubernetes</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

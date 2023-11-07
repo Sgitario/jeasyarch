@@ -31,6 +31,8 @@ Concepts:
 Content:
 
 - [Getting Started](#getting-started)
+  - [Kubernetes Support](#jeasyarch-kubernetes)
+  - [OpenShift Support](#jeasyarch-openshift)
   - [With Containers](#jeasyarch-containers)
   - [With Quarkus](#jeasyarch-quarkus)
   - [With Spring Boot](#jeasyarch-spring)
@@ -58,12 +60,14 @@ framework via the Extensions API to support new target environments and/or add n
 
 Let's find out the existing JEasyArch dependencies and their features:
 
-| Dependencies | Description                                                                           | 
-|--------------|---------------------------------------------------------------------------------------| 
-| [core](#jeasyarch-core)       | API, JUnit extension, allow using `@JEasyArch`, `@RunOnKubernetes` and `@RunOnOpenShift` |
-| [containers](#jeasyarch-containers) | Allow using `@Container` to run  and `@LocalProject` annotations                      |
-| [quarkus](#jeasyarch-quarkus)    | Allow using `@Quarkus` annotation                                                     |
-| [spring](#jeasyarch-spring)     | Allow using `@Spring` annotation                                                      |
+| Dependencies                                | Description                                                      | 
+|---------------------------------------------|------------------------------------------------------------------| 
+| [core](#jeasyarch-core)                     | API, JUnit extension, allow using `@JEasyArch`                   |
+| [kubernetes](#jeasyarch-kubernetes) | Allow using the `@RunOnKubernetes` annotation                    |
+| [openshift](#jeasyarch-openshift)             | Allow using the `@RunOnOpenShift` annotation                     |
+| [containers](#jeasyarch-containers)         | Allow using `@Container` to run  and `@LocalProject` annotations |
+| [quarkus](#jeasyarch-quarkus)               | Allow using `@Quarkus` annotation                                |
+| [spring](#jeasyarch-spring)                 | Allow using `@Spring` annotation                                 |
 
 ### Requirements
 
@@ -77,6 +81,38 @@ Let's find out the existing JEasyArch dependencies and their features:
 
 This dependency is the minimal requirement to run the framework and includes all the necessary APIs to extend the functionality. 
 To know more about the API and the extension API, go to the [Architecture](#architecture) section.
+
+### JEasyArch Kubernetes
+
+This extension allows running the tests on a Kubernetes cluster annotating the test with `@RunOnKubernetes`.
+
+You need to add the JEasyArch kubernetes dependency into the Maven pom file:
+
+```xml
+<dependencies>
+  <dependency>
+    <groupId>io.jeasyarch</groupId>
+    <artifactId>kubernetes</artifactId>
+    <scope>test</scope>
+  </dependency>
+<dependencies>
+```
+
+### JEasyArch OpenShift
+
+This extension allows running the tests on a Kubernetes cluster annotating the test with `@RunOnOpenShift`.
+
+You need to add the JEasyArch OpenShift dependency into the Maven pom file:
+
+```xml
+<dependencies>
+  <dependency>
+    <groupId>io.jeasyarch</groupId>
+    <artifactId>openshift</artifactId>
+    <scope>test</scope>
+  </dependency>
+<dependencies>
+```
 
 ### JEasyArch Containers
 
@@ -1221,7 +1257,7 @@ The framework has been designed to fully extend new features and/or customize th
 
 Extension API:
 
-- `Extension bootstrap point` - to set up common things along all the services. For example, [the Kubernetes extension bootstrap](core/src/main/java/io/jeasyarch/core/extensions/KubernetesExtensionBootstrap.java) is used to create the Kubernetes namespace before running the tests and inject the Kubernetes client to all the services and tests. This extension is registered in [META-INF/services/ExtensionBootstrap](core/src/main/resources/META-INF/services/io.jeasyarch.api.extensions.ExtensionBootstrap).
+- `Extension bootstrap point` - to set up common things along all the services. For example, [the Kubernetes extension bootstrap](kubernetes/src/main/java/io/jeasyarch/core/extensions/KubernetesExtensionBootstrap.java) is used to create the Kubernetes namespace before running the tests and inject the Kubernetes client to all the services and tests. This extension is registered in [META-INF/services/ExtensionBootstrap](core/src/main/resources/META-INF/services/io.jeasyarch.api.extensions.ExtensionBootstrap).
 - `Extension binding point` - create your custom annotations to deploy custom resources. For example, the [Container annotation](containers/src/main/java/io/jeasyarch/api/Container.java) is registered in [META-INF/services/AnnotationBinding](containers/src/main/resources/META-INF/services/io.jeasyarch.api.extensions.AnnotationBinding) using the binding [ContainerAnnotationBinding.java](containers/src/main/java/io/jeasyarch/resources/containers/ContainerAnnotationBinding.java)
 - `Extension Managed Resources point` - deploy your resources into the target environment. Each extension binding point will deploy the resources locally, though we can easily extend it to deploy services in any kind of target environment. For example, for containers, we provide the [ContainerManagedResourceBinding.java](containers/src/main/java/io/jeasyarch/api/extensions/ContainerManagedResourceBinding.java) extension point that we can provide to support other environments as we have done for [Kubernetes](containers/src/main/java/io/jeasyarch/resources/containers/kubernetes/KubernetesContainerManagedResourceBinding.java).
 

@@ -1,7 +1,7 @@
 package io.jeasyarch.resources.spring;
 
 import java.lang.annotation.Annotation;
-import java.util.ServiceLoader;
+import java.util.List;
 
 import io.jeasyarch.api.Service;
 import io.jeasyarch.api.Spring;
@@ -10,10 +10,11 @@ import io.jeasyarch.api.extensions.SpringManagedResourceBinding;
 import io.jeasyarch.core.JEasyArchContext;
 import io.jeasyarch.core.ManagedResource;
 import io.jeasyarch.resources.spring.local.LocalBootstrapSpringJavaProcessManagedResource;
+import io.jeasyarch.utils.ServiceLoaderUtils;
 
 public class SpringAnnotationBinding implements AnnotationBinding {
 
-    private final ServiceLoader<SpringManagedResourceBinding> customBindings = ServiceLoader
+    private final List<SpringManagedResourceBinding> customBindings = ServiceLoaderUtils
             .load(SpringManagedResourceBinding.class);
 
     @Override

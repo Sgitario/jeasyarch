@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.ServiceLoader;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -20,9 +19,10 @@ import io.jeasyarch.configuration.ServiceConfiguration;
 import io.jeasyarch.logging.Log;
 import io.jeasyarch.utils.FileUtils;
 import io.jeasyarch.utils.PropertiesUtils;
+import io.jeasyarch.utils.ServiceLoaderUtils;
 
 public class BaseService<T extends Service> implements Service {
-    private final ServiceLoader<ServiceListener> listeners = ServiceLoader.load(ServiceListener.class);
+    private final List<ServiceListener> listeners = ServiceLoaderUtils.load(ServiceListener.class);
 
     private final List<HookAction> onPreStartHookActions = new LinkedList<>();
     private final List<HookAction> onPostStartHookActions = new LinkedList<>();

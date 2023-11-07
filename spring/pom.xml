@@ -21,6 +21,16 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>kubernetes</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>openshift</artifactId>
+      <optional>true</optional>
+    </dependency>
     <!-- Provided dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

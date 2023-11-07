@@ -25,7 +25,6 @@ import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.events.v1.Event;
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
-import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import io.fabric8.kubernetes.client.LocalPortForward;
 import io.fabric8.kubernetes.client.okhttp.OkHttpClientFactory;
@@ -37,7 +36,7 @@ import io.jeasyarch.utils.KeyValueEntry;
 import io.jeasyarch.utils.ManifestsUtils;
 import io.jeasyarch.utils.SocketUtils;
 
-public abstract class BaseKubernetesClient<T extends KubernetesClient> {
+public abstract class BaseKubernetesClient<T extends io.fabric8.kubernetes.client.KubernetesClient> {
 
     protected static final String PORT_FORWARD_HOST = "localhost";
 
@@ -432,8 +431,8 @@ public abstract class BaseKubernetesClient<T extends KubernetesClient> {
     private static boolean doCreateNamespace(String namespaceName) {
         boolean created = false;
         Config config = new ConfigBuilder().withTrustCerts(true).build();
-        try (KubernetesClient client = new KubernetesClientBuilder().withHttpClientFactory(new OkHttpClientFactory())
-                .withConfig(config).build()) {
+        try (io.fabric8.kubernetes.client.KubernetesClient client = new KubernetesClientBuilder()
+                .withHttpClientFactory(new OkHttpClientFactory()).withConfig(config).build()) {
             client.namespaces()
                     .resource(new NamespaceBuilder().withNewMetadata().withName(namespaceName).endMetadata().build())
                     .create();

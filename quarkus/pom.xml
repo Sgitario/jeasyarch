@@ -21,6 +21,16 @@
       <artifactId>core</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>kubernetes</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>io.jeasyarch</groupId>
+      <artifactId>openshift</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.shrinkwrap</groupId>
       <artifactId>shrinkwrap-depchain</artifactId>
       <version>${shrinkwrap-depchain.version}</version>
