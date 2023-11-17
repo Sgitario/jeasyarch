@@ -64,7 +64,12 @@ public class SpringResource {
     }
 
     private Optional<String> findRunner() {
-        return FileUtils.findFile(location.resolve(OutputUtils.runnerLocation()),
+        Path target = OutputUtils.target();
+        if (target.endsWith(OutputUtils.BUILD.toString())) {
+            target = target.resolve("libs");
+        }
+
+        return FileUtils.findFile(location.resolve(target),
                 f -> f.endsWith(JVM_RUNNER) && !f.endsWith(SOURCES + JVM_RUNNER));
     }
 

@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public final class OutputUtils {
-    private static final Path TARGET = Path.of("target");
-    private static final Path BUILD = Path.of("build");
+    public static final Path TARGET = Path.of("target");
+    public static final Path BUILD = Path.of("build");
 
     private OutputUtils() {
 

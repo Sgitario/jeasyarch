@@ -107,7 +107,7 @@ public class BootstrapQuarkusResource extends QuarkusResource {
     private Path tryToReuseOrBuildRunner() {
         Optional<String> runnerLocation = Optional.empty();
         if (!containsBuildProperties() && !requiresCustomBuild) {
-            Path targetLocation = location.resolve(OutputUtils.runnerLocation());
+            Path targetLocation = location.resolve(OutputUtils.target());
             if (QuarkusUtils.isNativePackageType(context.getOwner())) {
                 String nativeRunnerExpectedLocation = NATIVE_RUNNER;
                 if (OS.WINDOWS.isCurrentOs()) {
