@@ -50,7 +50,7 @@
     <junit.version>5.10.1</junit.version>
     <rest-assured.version>5.3.2</rest-assured.version>
     <awaitility.version>4.2.0</awaitility.version>
-    <apache.commons-io.version>2.15.0</apache.commons-io.version>
+    <apache.commons-io.version>2.15.1</apache.commons-io.version>
     <apache.commons-logging-api.version>1.1</apache.commons-logging-api.version>
     <kubernetes-client.version>6.9.2</kubernetes-client.version>
     <jackson.version>2.15.3</jackson.version>
