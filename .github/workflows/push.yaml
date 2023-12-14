@@ -86,12 +86,12 @@ jobs:
           zip -R artifacts-latest-linux-jvm${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ci-artifacts
           path: artifacts-latest-linux-jvm${{ matrix.java }}.zip
       - name: Archive Coverage Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ci-coverage
           path: coverage-report/target/site/jacoco
