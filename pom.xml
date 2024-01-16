@@ -56,7 +56,7 @@
     <jackson.version>2.15.3</jackson.version>
     <maven-model.version>3.9.6</maven-model.version>
     <postgresql.version>42.7.1</postgresql.version>
-    <mysql.version>8.2.0</mysql.version>
+    <mysql.version>8.3.0</mysql.version>
     <!-- Provided Dependencies -->
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
