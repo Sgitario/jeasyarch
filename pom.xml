@@ -55,7 +55,7 @@
     <kubernetes-client.version>6.10.0</kubernetes-client.version>
     <jackson.version>2.16.0</jackson.version>
     <maven-model.version>3.9.6</maven-model.version>
-    <postgresql.version>42.7.1</postgresql.version>
+    <postgresql.version>42.7.2</postgresql.version>
     <mysql.version>8.3.0</mysql.version>
     <!-- Provided Dependencies -->
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
