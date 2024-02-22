@@ -11,7 +11,7 @@
   <name>JEasyArch - Examples - Quarkus - OIDC + Keycloak</name>
   <properties>
     <!-- For tests only -->
-    <keycloak-authz-client.version>23.0.6</keycloak-authz-client.version>
+    <keycloak-authz-client.version>23.0.7</keycloak-authz-client.version>
   </properties>
   <dependencyManagement>
     <dependencies>
